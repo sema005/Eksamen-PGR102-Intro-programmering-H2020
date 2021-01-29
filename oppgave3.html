@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Oppgave 3. Matlageret (25%)</title>
+</head>
+
+<body>
+
+	<h3>Matlageret</h3>
+	<label>Produktnavn</label>
+	<input id="input-name" type="text"><br>
+	<label>Antall på lager</label>
+	<input id="input-amount" type="text"><br>
+	<input type="button" onclick="addProducts()" value="Legg til produkt i array">
+	<input type="button" onclick="showProducts()" value="Vis produkter du har lagt til">
+	<div id="output"></div>
+
+	<script>
+		const inputName = document.querySelector("#input-name");
+		const inputAmount = document.querySelector("#input-amount");
+		const output = document.querySelector("#output");
+
+
+		/* Besvarelse legges til før og/eller etter funksjonen */
+
+		/*
+			Ett array med produkter, jeg la til ett
+		*/
+		let products = [{
+			name: "Ost",
+			amount: 5
+		}]
+
+		/*
+			Legger til et produkt
+		*/
+		function addProducts() {
+			products.push({
+				name: `${inputName.value}`,
+				amount: `${inputAmount.value}`
+			})
+		}
+
+		/*
+			Viser produktene
+		*/
+		function showProducts() {
+			output.innerHTML = ""
+			let productsSorted = []
+
+			for (var i = 0; i < products.length; i++) {
+				output.innerHTML += `
+					<p>Navn: ${products[i].name}</p>
+					<p>Antall på lager: ${products[i].amount}</p>
+				`
+			}
+		}
+
+		/*
+			Denne sourtByAmount funksjonen sortere fra 1 og oppover eller motsatt. Ergo økende eller sykende rekkefølge.
+		*/
+
+		function sortByAmount(a, b) {
+			if (a.amount < b.amount) {
+				return 1;
+			}
+			if (a.amount > b.amount) {
+				return -1;
+			}
+			return 0;
+		}
+	</script>
+</body>
+
+</html>

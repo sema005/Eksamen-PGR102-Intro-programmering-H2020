@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Læringsspill</title>
+
+</head>
+
+<body id="body">
+	<div id="background">
+		<h1>Informasjon</h1>
+		<div id="information">
+			<div id="eminem"></div>
+			<div id="avicii"></div>
+		</div>
+
+		<div id="quiz">
+			<h1>Quiz</h1>
+			<p>(Jeg ville klikket på bildene før jeg starter quiz)
+				<br>Det er ja eller nei spørsmål
+			</p>
+			<div id="questions"></div>
+			<div id="results"></div>
+		</div>
+	</div>
+
+
+	<script>
+		const eminem = document.querySelector("#eminem");
+		const avicii = document.querySelector("#avicii");
+		const questions = document.querySelector("#questions");
+
+
+		/*
+			Eminems sin html
+		*/
+		eminem.innerHTML = `
+			<div>
+				<img id="image" onclick="showEminem()" src="./images/eminem.jpg" alt="Bilde av eminen album" />
+			</div>
+			<div id="hidden1">
+				<h1>The Marshall Mathers LP</h1>
+				<p>Er Eminems tredje album.<br> Det ble sluppet 23.mai.	2000</p>
+				<p>Det ble det bestselgende rap-albumet gjennom tidene.</p>
+			</div>
+				`
+
+		/*
+			Avicii sin html
+		*/
+		avicii.innerHTML = `
+			<div>
+				<img id="image2" onclick="showAvicii()" src="./images/avicii.jpg" alt="Bilde av eminen album" />
+			</div>
+			<div id="hidden2">
+				<h1>True</h1>
+				<p>True er debut albumet til Avicii.<br> Det ble sluppet 13.september 2013</p>
+				<p>Albumet debuterte som nummer to på de britikske albumlistene</p>
+			</div>
+		`
+
+		/*
+			Eminems sin informasjon som kommer opp når man trykker på bilde
+		*/
+		function showEminem() {
+			var hidden = document.querySelector("#hidden1")
+			if (hidden.style.display === "none") {
+				hidden.style.display = "block"
+			} else {
+				hidden.style.display = "none"
+			}
+			console.log("HEi")
+		}
+
+		/*
+			Avicii sin informasjon som kommer opp når man trykker på bilde
+		*/
+		function showAvicii() {
+			var hidden = document.querySelector("#hidden2")
+			if (hidden.style.display === "none") {
+				hidden.style.display = "block"
+			} else {
+				hidden.style.display = "none"
+			}
+			console.log("HEi")
+		}
+
+		/*
+			QUIZ
+		*/
+
+
+		
+		/*
+			Array med spørsmål og riktig svar
+		*/
+		const quiz = [{
+				question: "Ble The Marshall Mathers LP sluppet 23 mai 2001?",
+				ans: "nei"
+			},
+			{
+				question: "Ble albumet til Eminem bestselgende gjennom tidene??",
+				ans: "ja"
+			},
+			{
+				question: "Ble True sluppet 13 september 2013?",
+				ans: "ja"
+			},
+			{
+				question: "Ble dette albumet top 1 på albumlistene?",
+				ans: "nei"
+			}
+		]
+
+		let i = 0
+		let riktig = 0
+		let feil = 0
+
+		
+		/*
+			Oppdaterer så når man tar neste spørsmål så komemr neste spørsmål
+		*/
+		function updateQuestion() {
+			if (i < quiz.length) {
+				questions.innerHTML = `
+					<label>${quiz[i].question}</label>
+					<input type="text" id="input-answear">
+					<input type="button" onclick="checkAnswear()" value="Neste spørsmål" >
+					`
+			} else {
+				questions.innerHTML = `
+					<p>Du er ferdig. Du fikk ${riktig} riktige og ${feil} feil</p>
+				`
+			}
+		}
+		updateQuestion()
+
+		
+		/*
+			Sjekker om det bruker skriver inn er riktig eller feil
+		*/
+		function checkAnswear() {
+			const inputAnswear = document.querySelector("#input-answear");
+			var answear = inputAnswear.value.toLowerCase()
+			var fasit = quiz[i].ans
+			if (answear === fasit) {
+				riktig++
+			} else {
+				feil++
+			}
+			i++
+			updateQuestion()
+			console.log(fasit)
+		}
+	</script>
+	<script src="./style.js"></script>
+</body>
+
+</html>

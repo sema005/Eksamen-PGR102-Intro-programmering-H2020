@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Oppgave 1. Glasset med ananasjuice (25%)</title>
+	<style>
+		/*
+			*******
+				Denne CSS-koden skal ikke endres
+			*******
+		*/
+		#glass-div {
+			width: 150px;
+			height: 350px;
+			border: 1px solid black;
+			border-top: none;
+			margin-top: 50px;
+			position: relative;
+		}
+
+		#juice-div {
+			height: 50px;
+			width: 100%;
+			background-color: rgb(230, 230, 50);
+			opacity: 0.5;
+			position: absolute;
+			bottom: 0;
+			transition: height 2s;
+		}
+
+		#status-p {
+			color: red;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h3>Ananasjuicedrikking</h3>
+
+	<label>Juice-mengde</label>
+	<input id="juice-amount-txt" type="text">
+
+	<input id="pour-more-juice-btn" type="button" onclick="addJuice()" value="Hell i mer juice">
+	<input id="drink-juice-btn" type="button" onclick="drinkJuice()" value="Drikk juice">
+
+	<p id="status-p">Status nå: OK</p>
+
+	<div id="glass-div">
+		<span id="juice-level-span">50</span>
+		<div id="juice-div"></div>
+	</div>
+
+	<script>
+		/* Besvarelse her */
+
+		const juiceAmountTxt = document.querySelector("#juice-amount-txt");
+		const status = document.querySelector("#status-p");
+		const juiceDiv = document.querySelector("#juice-div");
+		const juiceLevel = document.querySelector("#juice-level-span");
+
+
+		var maxJuice = 350
+		var minJuice = 0
+		var juiceAmount = 50
+		/*
+			Oppdaterer høyden på juicen
+		*/
+		function updateHeight() {
+			juiceDiv.style.height = juiceAmount + "px"
+			juiceDiv.style.maxHeight = maxJuice + "px"
+			juiceDiv.style.minHeight = minJuice + "px"
+		}
+
+		/*
+			Legger til juice
+		*/
+		function addJuice() {
+			var inputJuice = parseInt(juiceAmountTxt.value)
+			juiceAmount = juiceAmount + inputJuice
+			updateHeight()
+			checkAmount()
+		}
+
+		/*
+			Drikker juice
+		*/
+		function drinkJuice() {
+			var inputJuice = parseInt(juiceAmountTxt.value)
+			juiceAmount = juiceAmount - inputJuice
+			updateHeight()
+			checkAmount()
+		}
+
+		/*
+			Sjekker hvor mye juice som er i glasset
+		*/
+		function checkAmount() {
+			if (juiceAmount >= 350) {
+				status.innerHTML = "Glasset er fullt"
+				juiceAmount = 350
+				juiceLevel.innerHTML = 350
+			} else if (juiceAmount <= 0) {
+				status.innerHTML = "Glasset er tomt"
+				juiceAmount = 0
+				juiceLevel.innerHTML = 0
+			} else {
+				status.innerHTML = "Status nå: OK"
+				juiceLevel.innerHTML = juiceAmount
+			}
+		}
+
+		/*
+			Sjekker om det er skrevet noe inn i inputen
+		*/
+		function checkInput() {
+			if (juiceAmountTxt.value = " ") {
+				status.innerHTML = "Må skrive inn ett tall"
+			}
+		}
+	</script>
+
+</body>
+
+</html>
